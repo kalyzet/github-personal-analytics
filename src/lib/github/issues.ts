@@ -15,5 +15,8 @@ export function listIssues(
       direction: "desc",
       since: options.since,
     },
+    stopWhen: options.since
+      ? (issue) => new Date(issue.updated_at) < new Date(options.since!)
+      : undefined,
   });
 }

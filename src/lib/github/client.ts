@@ -154,9 +154,12 @@ export async function getRateLimitStatus(
 export async function paginate<T>(
   token: string,
   path: string,
-  options: RequestOptions & { maxPages?: number } = {},
+  options: RequestOptions & {
+    maxPages?: number;
+    stopWhen?: (item: T) => boolean;
+  } = {},
 ): Promise<T[]> {
-  const { maxPages = 500, ...restOptions } = options;
+  const { maxPages = 500, stopWhen, ...restOptions } = options;
   const perPage = 100;
   const results: T[] = [];
 
@@ -166,9 +169,15 @@ export async function paginate<T>(
       params: { ...restOptions.params, per_page: perPage, page },
     });
 
-    results.push(...data);
+    let shouldStop = false;
+    for (const item of data) {
+      results.push(item);
+      if (stopWhen?.(item)) {
+        shouldStop = true;
+      }
+    }
 
-    if (data.length < perPage) break;
+    if (shouldStop || data.length < perPage) break;
   }
 
   return results;

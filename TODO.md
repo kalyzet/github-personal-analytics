@@ -48,16 +48,18 @@ Acuan utama: `SCHEMA.md` (fix), didukung `PRD.md` dan `DESIGN.md`.
 - [x] Modul endpoint: `users.ts`, `repositories.ts`, `commits.ts` (+detail), `pull-requests.ts`, `issues.ts`, `reviews.ts`, `releases.ts`, `languages.ts`
 - [x] DB helper upsert user/account (`lib/db/repositories/users.ts`)
 
-## Fase 3 — Sync Engine
+## Fase 3 — Sync Engine ✅ DONE
 
-- [ ] `sync_jobs` logging (PENDING/RUNNING/SUCCESS/FAILED)
-- [ ] Full sync: user → repositories → per-repo resources → upsert
-- [ ] Incremental sync via `sync_cursors` (`last_synced_at`)
-- [ ] UPSERT strategy semua entity (tanpa duplicate data)
-- [ ] Aggregation → `daily_activity` & `repository_activity`
-- [ ] API routes `/api/sync/start`, `/api/sync/status`
-- [ ] Halaman Sync: last sync, status, progress per resource, sync history
-- [ ] Caching strategy (metadata jarang berubah vs aktivitas sering)
+- [x] `sync_jobs` logging (PENDING/RUNNING/SUCCESS/FAILED) + stale job auto-FAIL saat proses mati
+- [x] Full sync: user → repositories → per-repo resources → upsert
+- [x] Incremental sync via `sync_cursors` (`last_synced_at`) + early-stop predicate di pagination
+- [x] UPSERT strategy semua entity via onConflictDoUpdate (tanpa duplicate data)
+- [x] Aggregation rebuild → `daily_activity` & `repository_activity` (transaksional, full recalc dari raw data)
+- [x] Commit stats backfill (additions/deletions/changed_files) — budget 200 request/job, concurrency 8
+- [x] API routes `/api/sync/start` (background job + guard concurrency) & `/api/sync/status`
+- [x] Halaman Sync: last sync, status live (polling), Sync Now, Full Resync, rate limit usage, sync history
+- [x] Rate limit pre-check (sync dibatalkan jika sisa quota < 50)
+- [x] Live progress update ke DB tiap repo selesai
 
 ## Fase 4 — Dashboard & Analytics
 
@@ -132,3 +134,18 @@ Client ID & Client Secret → simpan di `.env.local` (`GITHUB_CLIENT_ID`, `GITHU
   - `/api/auth/github/logout` — GET/POST destroy session
 - UI placeholder dark-first: landing page (`Connect GitHub` / `Buka Dashboard`) + dashboard placeholder (info user, status token, logout)
 - Verifikasi live test: login route → 307 ke github.com/login/oauth/authorize dengan param benar + state cookie; home 200; `/dashboard` tanpa session redirect ke `/`; tsc/eslint/build bersih
+
+### Fase 3 — selesai 2026-08-25
+
+- DB helpers:
+  - `lib/db/repositories/repositories.ts` — upsert batch (chunked) untuk repos, languages, commits, PRs, reviews (replace), issues (+labels), releases; semua via `onConflictDoUpdate` dengan `excluded.*`
+  - `lib/db/repositories/sync.ts` — create/update job, cursors per (user, repo, resource), history
+  - `lib/db/repositories/aggregation.ts` — rebuild `daily_activity` + `repository_activity` dari raw data dalam satu transaksi
+- Sync engine (`services/sync/engine.ts`):
+  - Pre-check rate limit (<50 sisa → batal), stale RUNNING job → auto FAILED "Sync interrupted"
+  - Per repo: languages → commits (list + backfill detail stats budget 200/job, concurrency 8) → PRs + reviews → issues + labels → releases → cursor update → live progress ke DB
+  - Incremental mode pakai cursor `last_synced_at`; pagination dengan early-stop saat item lebih lama dari cursor
+- API: POST `/api/sync/start` (fire-and-forget background job, guard concurrency, FULL/INCREMENTAL otomatis) & GET `/api/sync/status` (latest job, history, stats count, rate limit)
+- UI: halaman `/sync` dark-first dengan polling adaptif (2s saat running / 15s idle), Sync Now, Full Resync, kartu statistik, tabel history
+- Hasil test sync nyata (akun kalyzet): SUCCESS — 45 repos, 2.415 commits, 34 PRs, 7 issues, 5 releases, 106 language entries; agregasi 109 hari aktif & 131 repo-hari; konsistensi terverifikasi (SUM agregasi = COUNT raw = 464)
+- Script util: `scripts/run-sync.ts` (trigger sync via CLI)

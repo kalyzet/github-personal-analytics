@@ -1,0 +1,65 @@
+◇ injected env (6) from .env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+Requesting FULL sync for user 2...
+Sync job #4 started.
+[poll] status=RUNNING records=0 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=51 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=59 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=59 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=78 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=91 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=91 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=141 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=141 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=178 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=184 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=197 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=197 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=217 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=217 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=255 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=278 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=278 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=281 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=281 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=345 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=368 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=398 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=422 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=433 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=447 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=461 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=461 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=461 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=461 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=461 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=461 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=564 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=674 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=682 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=704 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=704 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=704 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=704 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=704 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=704 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=2492 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=2515 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=2533 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=2554 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=2592 | repos=45 commits=2306 prs=34 issues=7 days=0 langs=107
+[poll] status=RUNNING records=2602 | repos=45 commits=2315 prs=34 issues=7 days=0 langs=109
+[poll] status=RUNNING records=2613 | repos=45 commits=2329 prs=34 issues=7 days=0 langs=110
+[poll] status=RUNNING records=2619 | repos=45 commits=2330 prs=34 issues=7 days=0 langs=112
+[poll] status=RUNNING records=2622 | repos=45 commits=2334 prs=34 issues=7 days=0 langs=113
+[poll] status=RUNNING records=2629 | repos=45 commits=2335 prs=34 issues=7 days=0 langs=114
+[poll] status=RUNNING records=2659 | repos=45 commits=2365 prs=34 issues=7 days=0 langs=115
+[poll] status=RUNNING records=2662 | repos=45 commits=2367 prs=34 issues=7 days=0 langs=116
+[poll] status=RUNNING records=2671 | repos=45 commits=2375 prs=34 issues=7 days=0 langs=118
+[poll] status=RUNNING records=2694 | repos=45 commits=2394 prs=35 issues=7 days=0 langs=118
+[poll] status=RUNNING records=2697 | repos=45 commits=2395 prs=35 issues=7 days=0 langs=123
+[poll] status=RUNNING records=2711 | repos=45 commits=2406 prs=35 issues=7 days=0 langs=125
+[poll] status=SUCCESS records=2962 | repos=45 commits=2415 prs=35 issues=7 days=109 langs=125
+
+=== SYNC SUCCESS ===
+Repositories scanned: 45
+Records processed: 2962

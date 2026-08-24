@@ -37,12 +37,20 @@ export default async function DashboardPage() {
           </div>
         </dl>
       </div>
-      <Link
-        href="/api/auth/github/logout"
-        className="rounded-lg border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition-colors hover:border-zinc-500 hover:text-zinc-100"
-      >
-        Logout
-      </Link>
+      <div className="flex gap-3">
+        <Link
+          href="/sync"
+          className="rounded-lg bg-[#8B5CF6] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#7C3AED]"
+        >
+          Sync Data
+        </Link>
+        <Link
+          href="/api/auth/github/logout"
+          className="rounded-lg border border-zinc-700 px-4 py-2 text-sm text-zinc-300 transition-colors hover:border-zinc-500 hover:text-zinc-100"
+        >
+          Logout
+        </Link>
+      </div>
     </main>
   );
 }
