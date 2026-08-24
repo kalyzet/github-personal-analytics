@@ -9,8 +9,11 @@ import {
   FolderGit2,
   GitPullRequestArrow,
   LayoutDashboard,
+  Lightbulb,
   Menu,
   RefreshCw,
+  Settings,
+  Target,
   X,
 } from "lucide-react";
 
@@ -35,8 +38,18 @@ const NAV_GROUPS = [
     ],
   },
   {
+    label: "Insights",
+    items: [
+      { href: "/insights", label: "Insights", icon: Lightbulb },
+      { href: "/milestones", label: "Milestones", icon: Target },
+    ],
+  },
+  {
     label: "System",
-    items: [{ href: "/sync", label: "Sync", icon: RefreshCw }],
+    items: [
+      { href: "/sync", label: "Sync", icon: RefreshCw },
+      { href: "/settings", label: "Settings", icon: Settings },
+    ],
   },
 ];
 
@@ -91,7 +104,7 @@ export default function AppShell({
 
   return (
     <div className="flex min-h-screen">
-      <aside className="fixed hidden h-screen w-[240px] flex-col border-r border-border-default bg-surface p-4 md:flex">
+      <aside className="fixed hidden h-screen w-[240px] flex-col overflow-y-auto border-r border-border-default bg-surface p-4 md:flex [scrollbar-width:thin]">
         <Link href="/dashboard" className="mb-8 flex items-center gap-2 px-3 pt-1">
           <span className="text-lg text-accent">◈</span>
           <span className="text-sm font-bold tracking-tight">
@@ -182,7 +195,7 @@ export default function AppShell({
             className="absolute inset-0 bg-black/60"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute left-0 top-0 h-full w-64 border-r border-border-default bg-surface p-4">
+          <div className="absolute left-0 top-0 h-full w-64 overflow-y-auto border-r border-border-default bg-surface p-4 [scrollbar-width:thin]">
             <div className="mb-8 flex items-center justify-between">
               <span className="flex items-center gap-2 text-sm font-bold">
                 <span className="text-lg text-accent">◈</span> GitHub Analytics

@@ -1,5 +1,7 @@
 # GitHub Personal Analytics — TODO
 
+**Status: V1 SELESAI ✅** (semua fase selesai — lihat Progress Log)
+
 Acuan utama: `SCHEMA.md` (fix), didukung `PRD.md` dan `DESIGN.md`.
 
 **Stack:** Next.js (App Router) · TypeScript · Tailwind CSS · SQLite + Drizzle ORM · Custom GitHub OAuth · Recharts · pnpm
@@ -74,13 +76,14 @@ Acuan utama: `SCHEMA.md` (fix), didukung `PRD.md` dan `DESIGN.md`.
 - [x] Empty states untuk semua halaman
 - [x] Responsive: mobile bottom nav + drawer sidebar
 
-## Fase 5 — Polish & V1 Wrap-up
+## Fase 5 — Polish & V1 Wrap-up ✅ DONE
 
-- [ ] Settings page (account, connection, privacy, danger zone)
-- [ ] Disconnect GitHub + delete all data
-- [ ] Halaman Insights & Milestones (V2 scope, opsional di V1)
-- [ ] Review keamanan: token tidak ke client, .env tidak masuk git
-- [ ] Backup manual SQLite (dokumentasi singkat)
+- [x] Settings page (account, GitHub connection, data & privacy)
+- [x] Disconnect GitHub (hapus token terenkripsi) + delete analytics data + delete account — semua dengan modal konfirmasi
+- [x] Halaman Insights (auto-generated dari comparison & pattern) & Milestones (commits/streak/repos/stars dengan progress)
+- [x] Review keamanan: `.env.local` tidak ter-track git, token hanya server-side & terenkripsi AES-256-GCM, session httpOnly HMAC-signed
+- [x] Backup manual SQLite (dokumentasi di README.md)
+- [x] Nonaktifkan dev indicator Next.js
 
 ---
 
@@ -168,3 +171,15 @@ Client ID & Client Secret → simpan di `.env.local` (`GITHUB_CLIENT_ID`, `GITHU
 - Hasil test analytics data nyata (30d): 91 commits, 11/30 hari aktif, streak terpanjang 10 hari, bahasa dominan HTML 36.3%, developer score 59/100
 - Fix bug: kolom ambigu created_at pada query PR stats
 - tsc/eslint/build bersih
+
+### Fase 5 — selesai 2026-08-25
+
+- `next.config.ts`: `devIndicators: false`
+- API `/api/settings`: POST disconnect (hapus github_accounts), DELETE ?scope=analytics|all (hapus repos cascade + agregasi + jobs/cursors + insights + snapshots)
+- Settings page: info akun, status koneksi (scope, connected sejak, token storage), Data & Privacy, Danger Zone dengan modal konfirmasi (`components/settings/danger-zone.tsx`)
+- Halaman Insights: insight auto-generated dari comparison periode (naik/turun ≥20%), streak, weekday dominan, repo dominan
+- Halaman Milestones: target commits/streak/repos/stars dengan progress bar, highlight milestone terdekat
+- Sidebar: grup Insights & System (Sync, Settings) ditambahkan
+- Security review: hanya `.env.example` di git; token AES-256-GCM server-only; session httpOnly HMAC
+- README.md ditulis ulang (setup, backup SQLite, skrip utilitas)
+- tsc/eslint/build bersih; semua route ter-render

@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub Personal Analytics
 
-## Getting Started
+Personal analytics dashboard yang mengumpulkan data aktivitas GitHub via GitHub API, lalu mengolahnya menjadi statistik, insight, tren, dan evaluasi perkembangan aktivitas sebagai developer.
 
-First, run the development server:
+> **Measure activity, don't pretend to measure developer ability.**
+
+## Tech Stack
+
+- Next.js 16 (App Router) · TypeScript · Tailwind CSS v4
+- SQLite (local-first) + Drizzle ORM
+- GitHub OAuth (custom) + REST API
+- Recharts · Lucide Icons
+- pnpm
+
+## Menjalankan
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+pnpm db:push        # buat schema SQLite
+cp .env.example .env.local   # isi GITHUB_CLIENT_ID & GITHUB_CLIENT_SECRET & TOKEN_ENCRYPTION_KEY
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka `http://localhost:3000` → **Connect GitHub** → **Sync Now** dari menu Sync.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Backup Database
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Database tersimpan sebagai satu file SQLite di `data/analytics.db`. Backup manual cukup dengan menyalin file tersebut:
 
-## Learn More
+```bash
+mkdir backups
+cp data/analytics.db backups/analytics-$(date +%F).db
+```
 
-To learn more about Next.js, take a look at the following resources:
+Raw data (commits, PRs, issues, dll.) adalah source of truth — agregasi dan analytics bisa di-rebuild kapan saja, jadi backup file database sudah mencakup semuanya.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Skrip Utilitas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm db:push              # push schema ke SQLite
+pnpm db:studio            # Drizzle Studio (lihat isi DB)
+npx tsx scripts/run-sync.ts <userId>    # trigger full sync via CLI
+```
 
-## Deploy on Vercel
+## Dokumentasi Desain
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `PRD.md` — product requirements
+- `DESIGN.md` — design system "Developer Observatory"
+- `SCHEMA.md` — arsitektur & database design (acuan utama)
+- `TODO.md` — progress implementasi per fase
