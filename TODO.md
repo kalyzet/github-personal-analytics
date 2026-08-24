@@ -61,18 +61,18 @@ Acuan utama: `SCHEMA.md` (fix), didukung `PRD.md` dan `DESIGN.md`.
 - [x] Rate limit pre-check (sync dibatalkan jika sisa quota < 50)
 - [x] Live progress update ke DB tiap repo selesai
 
-## Fase 4 — Dashboard & Analytics
+## Fase 4 — Dashboard & Analytics ✅ DONE
 
-- [ ] Analytics engine: streaks, tren, distribusi repo/bahasa, commit pattern
-- [ ] Developer metrics (activity, consistency, collaboration)
-- [ ] API routes analytics & dashboard
-- [ ] Layout UI sesuai DESIGN.md: dark-first, sidebar 240px, topbar
-- [ ] Design tokens: warna zinc + accent #8B5CF6/#06B6D4, Inter + JetBrains Mono
-- [ ] Dashboard page: metric cards, heatmap, activity trend, top repos, languages, insights
-- [ ] Halaman Activity, Commits, Pull Requests, Repositories (+detail), Technologies
-- [ ] Charts dengan Recharts (heatmap, line/area, bar, donut)
-- [ ] Empty states, loading skeletons, error states, toast, modal
-- [ ] Responsive: tablet (sidebar 72px), mobile (drawer/bottom nav)
+- [x] Analytics engine: overview (totals, streaks, weekday/weekend pattern, comparison vs periode lalu), commit patterns (per jam + time bucket), distribusi repo, distribusi bahasa
+- [x] Developer metrics + Developer Score explainable (6 komponen berbobot dengan deskripsi sumber perhitungan)
+- [x] API `/api/analytics/[section]` — overview | activity | commits | pull-requests | repositories | technologies | dashboard
+- [x] Layout UI sesuai DESIGN.md: dark-first, sidebar 240px (desktop) / drawer (mobile), topbar, bottom-nav mobile
+- [x] Design tokens via Tailwind v4 `@theme` (zinc surfaces + accent #8B5CF6/#06B6D4) + font Inter/JetBrains Mono
+- [x] Dashboard page: metric cards + comparison, heatmap, activity trend, Developer Score card, Top Repositories, Languages, Coding Pattern
+- [x] Halaman Activity (timeline + heatmap + breakdown), Commits (cards + trend + per jam + bucket), Pull Requests (merge rate, lifetime, ukuran), Repositories (status badge + distribusi aktivitas), Technologies (bar list + diversity)
+- [x] Charts Recharts: area trend, bar per-jam; heatmap custom grid; BarList server component
+- [x] Empty states untuk semua halaman
+- [x] Responsive: mobile bottom nav + drawer sidebar
 
 ## Fase 5 — Polish & V1 Wrap-up
 
@@ -149,3 +149,22 @@ Client ID & Client Secret → simpan di `.env.local` (`GITHUB_CLIENT_ID`, `GITHU
 - UI: halaman `/sync` dark-first dengan polling adaptif (2s saat running / 15s idle), Sync Now, Full Resync, kartu statistik, tabel history
 - Hasil test sync nyata (akun kalyzet): SUCCESS — 45 repos, 2.415 commits, 34 PRs, 7 issues, 5 releases, 106 language entries; agregasi 109 hari aktif & 131 repo-hari; konsistensi terverifikasi (SUM agregasi = COUNT raw = 464)
 - Script util: `scripts/run-sync.ts` (trigger sync via CLI)
+
+### Fase 4 — selesai 2026-08-25
+
+- Deps baru: recharts 3.10.1, lucide-react
+- Design tokens di `globals.css` via `@theme` (surface/border/text/accent sesuai DESIGN.md) + Inter & JetBrains Mono via next/font
+- Analytics services (`src/services/analytics/`):
+  - `overview.ts` — totals, active days, current/longest streak, weekday dominan, weekend share, comparison vs periode sebelumnya
+  - `repositories.ts` — top repos by commit share + repo health (aktif 90 hari)
+  - `technologies.ts` — language distribution dari bytes, commit per jam + time buckets (Pagi/Siang/Sore/Malam), avg commit size
+  - `pull-requests.ts` — merge rate, avg lifetime, ukuran PR
+  - `developer-score.ts` — score explainable: Activity 25% / Consistency 20% / Collaboration 20% / Project Health 15% / Technology 10% / Maintenance 10%
+- API `/api/analytics/[section]` dengan query param period (7d/30d/90d/1y)
+- Route group `(main)` dengan AppShell (sidebar + topbar + mobile drawer + bottom nav); dashboard/sync dipindah masuk
+- Komponen UI: primitives (Card, MetricCard, ProgressBar, StatusBadge, EmptyState), BarList, PeriodSelector
+- Charts: TrendChart (Recharts area), HourBarChart (Recharts bar), ActivityHeatmap (custom grid dengan level intensitas accent)
+- Halaman: Dashboard, Activity, Commits, Pull Requests, Repositories, Technologies
+- Hasil test analytics data nyata (30d): 91 commits, 11/30 hari aktif, streak terpanjang 10 hari, bahasa dominan HTML 36.3%, developer score 59/100
+- Fix bug: kolom ambigu created_at pada query PR stats
+- tsc/eslint/build bersih

@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 
 interface SyncJob {
   id: number;
@@ -115,25 +114,18 @@ export default function SyncClient() {
   }
 
   return (
-    <main className="min-h-screen bg-[#09090B] p-8 text-zinc-100">
-      <div className="mx-auto flex max-w-4xl flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-bold">GitHub Sync</h1>
-            <p className="mt-1 text-sm text-zinc-500">
-              Last sync:{" "}
-              {status
-                ? formatRelative(status.latestJob?.startedAt ?? null)
-                : "..."}
-            </p>
-          </div>
-          <Link
-            href="/dashboard"
-            className="rounded-lg border border-[#27272A] px-3 py-1.5 text-sm text-zinc-400 transition-colors hover:border-[#3F3F46] hover:text-zinc-100"
-          >
-            Dashboard
-          </Link>
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-bold tracking-tight">GitHub Sync</h1>
+          <p className="mt-0.5 text-xs text-text-muted">
+            Last sync:{" "}
+            {status
+              ? formatRelative(status.latestJob?.startedAt ?? null)
+              : "..."}
+          </p>
         </div>
+      </div>
 
         <section className="rounded-xl border border-[#27272A] bg-[#111113] p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -262,7 +254,6 @@ export default function SyncClient() {
             </table>
           )}
         </section>
-      </div>
-    </main>
+    </div>
   );
 }
