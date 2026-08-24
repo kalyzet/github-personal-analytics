@@ -7,7 +7,9 @@ import * as schema from "./schema";
 const dbUrl =
   process.env.DATABASE_URL?.replace("file:", "") ?? "./data/analytics.db";
 
-const dbDir = path.dirname(path.resolve(dbUrl));
+const dbDir = path.dirname(
+  path.resolve(/*turbopackIgnore: true*/ dbUrl),
+);
 mkdirSync(dbDir, { recursive: true });
 
 const globalForDb = globalThis as unknown as {
